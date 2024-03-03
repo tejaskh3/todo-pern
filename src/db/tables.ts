@@ -1,7 +1,7 @@
 import { client } from "../index";
 export async function createUserTable() {
   try {
-    await client.query(`
+    const result = await client.query(`
     CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
@@ -9,6 +9,7 @@ export async function createUserTable() {
         name VARCHAR(255) NOT NULL
     );
 `);
+    console.log(result);
   } catch (error) {
     console.log("error creating un user table", error);
   }
@@ -16,7 +17,7 @@ export async function createUserTable() {
 
 export async function createTodosTable() {
   try {
-    await client.query(`
+    const result = await client.query(`
           CREATE TABLE IF NOT EXISTS todos (
               id SERIAL PRIMARY KEY,
               user_id INTEGER NOT NULL REFERENCES users(id),
@@ -25,6 +26,7 @@ export async function createTodosTable() {
               done BOOLEAN DEFAULT false
           );
       `);
+    console.log(result);
   } catch (error) {
     console.log("error creating in todo table", error);
   }
